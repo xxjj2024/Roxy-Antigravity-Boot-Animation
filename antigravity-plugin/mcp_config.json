@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "intro": {
+      "command": "python",
+      "args": ["${PLUGIN_ROOT}/server.py"]
+    }
+  }
+}

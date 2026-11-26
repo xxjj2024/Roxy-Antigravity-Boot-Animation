@@ -1,0 +1,19 @@
+# Compiled Windows binaries & temporary build artifacts
+windows-overlay/build/
+windows-overlay/assets/_*.wav
+windows-overlay/assets/_*.json
+windows-overlay/assets/_*.txt
+
+# Node / Web tooling
+antigravity-plugin/node_modules/
+antigravity-plugin/dist/
+antigravity-plugin/package-lock.json
+
+# Python / OS / Editor junk
+__pycache__/
+*.py[cod]
+.venv/
+.edge/
+.DS_Store
+Thumbs.db
+*.log

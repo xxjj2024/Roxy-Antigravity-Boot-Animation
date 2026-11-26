@@ -1,0 +1,12 @@
+{
+  "name": "roxy-intro",
+  "displayName": "洛琪希开场动画",
+  "description": "《无职转生》洛琪希主题 Antigravity 开场动画：纯黑星穹一镜到底、水球（Water Ball）日语咏唱与思源宋体中日双语字幕，可从左侧边栏或侧边面板随时播放。",
+  "version": "1.0.0",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "播放洛琪希开场动画",
+    "在侧边面板打开洛琪希开场动画",
+    "再放一次洛琪希水魔法咏唱开场"
+  ]
+}

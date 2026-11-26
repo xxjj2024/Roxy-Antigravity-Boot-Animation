@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>洛琪希 · 水魔术咏唱启幕</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%;height:100vh;min-height:420px;overflow:hidden;
+  background:#000000;
+  color:#f5f9ff;
+  cursor:pointer;
+  user-select:none;-webkit-user-select:none;
+}
+#stage{
+  position:fixed;inset:0;overflow:hidden;background:#000000;
+}
+#cam{
+  position:absolute;inset:-3%;width:106%;height:106%;
+  transform-origin:62% 45%;
+  will-change:transform,opacity,filter;
+}
+.layer{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:62% 44%;
+  opacity:0;pointer-events:none;
+  will-change:opacity,transform,-webkit-mask-image,mask-image;
+}
+#img-line{z-index:2;mix-blend-mode:screen}
+#img-neon{z-index:3;mix-blend-mode:screen}
+#img-closed{z-index:4}
+#img-open{z-index:5}
+#img-climax{z-index:6}
+
+#fx{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;z-index:8;pointer-events:none;
+}
+
+#end-veil{
+  position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 80% 78% at 62% 44%, rgba(0,0,0,.62) 0%, rgba(0,0,0,.88) 65%, #000000 100%);
+  will-change:opacity;
+}
+
+/* Celeste signature bilingual CJK serif subtitle with crisp dark outline & shadow */
+#subtitle{
+  position:absolute;left:50%;bottom:6.2vh;transform:translateX(-50%);
+  z-index:10;pointer-events:none;opacity:0;
+  width:min(94vw,1120px);text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-family:"Noto Serif SC","Source Han Serif SC","STSong","Songti SC",Georgia,serif;
+  will-change:opacity,transform;
+}
+#sub-zh{
+  font-size:clamp(18px,3.1vh,32px);
+  font-weight:500;line-height:1.3;letter-spacing:.08em;
+  color:#ffffff;
+  text-shadow:
+    0 2px 14px rgba(0,0,0,.96),
+    0 0 6px rgba(0,0,0,.96),
+    1.5px 1.5px 0 rgba(6,10,22,.94),
+    -1.5px -1.5px 0 rgba(6,10,22,.94),
+    1.5px -1.5px 0 rgba(6,10,22,.94),
+    -1.5px 1.5px 0 rgba(6,10,22,.94);
+}
+#sub-ja{
+  font-size:clamp(12px,1.95vh,19px);
+  font-weight:400;line-height:1.3;letter-spacing:.06em;
+  color:rgba(214,242,255,.9);
+  text-shadow:
+    0 2px 10px rgba(0,0,0,.96),
+    1px 1px 0 rgba(6,10,22,.92),
+    -1px -1px 0 rgba(6,10,22,.92),
+    1px -1px 0 rgba(6,10,22,.92),
+    -1px 1px 0 rgba(6,10,22,.92);
+}
+
+#end-badge{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  z-index:11;pointer-events:none;opacity:0;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-align:center;will-change:opacity,transform;
+}
+#end-badge .end-star{
+  font-size:20px;line-height:1;color:#a8f3ff;
+  text-shadow:0 0 18px rgba(130,235,255,.95),0 0 36px rgba(95,180,255,.55);
+  animation:starBreath 3.6s ease-in-out infinite;
+}
+#end-badge .end-text{
+  font-family:Georgia,"Times New Roman",serif;
+  font-style:italic;font-size:clamp(12px,1.75vh,14.5px);
+  letter-spacing:.26em;padding-left:.26em;
+  color:rgba(215,236,255,.62);
+  text-shadow:0 2px 14px rgba(0,0,0,1);
+}
+@keyframes starBreath{
+  0%,100%{opacity:.55;transform:scale(.95)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+
+#hud-skip{
+  position:absolute;left:50%;bottom:1.8vh;transform:translateX(-50%);
+  z-index:12;padding:4px 12px;border-radius:999px;pointer-events:none;
+  font:500 10.5px/1 ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.18em;color:rgba(210,235,255,.52);
+  background:rgba(4,8,18,.4);border:1px solid rgba(130,210,255,.2);
+  transition:opacity .65s ease;
+}
+.is-fading #hud-skip,.is-done #hud-skip{opacity:0;pointer-events:none}
+
+#controls{
+  position:absolute;right:20px;bottom:18px;z-index:14;
+  display:flex;gap:8px;opacity:0;pointer-events:none;
+  transition:opacity .6s ease;
+}
+.is-done #controls, #stage:hover #controls{opacity:1;pointer-events:auto}
+.ctrl-btn{
+  font:500 12px/1 "PingFang SC","Microsoft YaHei",sans-serif;
+  letter-spacing:.08em;color:rgba(235,246,255,.88);
+  background:rgba(6,10,22,.62);
+  border:1px solid rgba(130,218,255,.32);border-radius:999px;
+  padding:7px 14px;cursor:pointer;backdrop-filter:blur(8px);
+  transition:background .2s,border-color .2s,transform .15s;
+}
+.ctrl-btn:hover{
+  background:rgba(26,46,92,.85);
+  border-color:rgba(150,235,255,.85);
+  transform:translateY(-1px);
+}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="cam">
+    <img id="img-line" class="layer" alt="">
+    <img id="img-neon" class="layer" alt="">
+    <img id="img-closed" class="layer" alt="">
+    <img id="img-open" class="layer" alt="">
+    <img id="img-climax" class="layer" alt="洛琪希">
+  </div>
+  <canvas id="fx"></canvas>
+  <div id="end-veil" aria-hidden="true"></div>
+  <div id="subtitle" aria-live="polite">
+    <div id="sub-zh"></div>
+    <div id="sub-ja"></div>
+  </div>
+  <div id="end-badge" aria-hidden="true">
+    <div class="end-star">✦</div>
+    <div class="end-text">ROXY MIGURDIA</div>
+  </div>
+  <div id="hud-skip">[ESC] 跳过</div>
+  <div id="controls">
+    <button id="btn-mode" class="ctrl-btn" type="button">全亮观赏</button>
+    <button id="btn-sfx" class="ctrl-btn" type="button">咏唱 开</button>
+    <button id="btn-replay" class="ctrl-btn" type="button">↻ 重播</button>
+  </div>
+</div>
+<script>/*__ASSETS__*/</script>
+<script>/*__BUNDLE__*/</script>
+</body>
+</html>
